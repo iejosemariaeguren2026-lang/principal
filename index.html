@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Institución Educativa Privada José María Eguren - Educación para el Trabajo">
+  <title>IEP José María Eguren</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       CABECERA
+  ========================== -->
+  <header class="site-header">
+    <div class="header-content">
+
+      <div class="header-logo">
+        <img src="InsigniaEguren.png" alt="Logo IEP José María Eguren">
+      </div>
+
+      <div class="header-text">
+        <p class="institution-type">Institución Educativa Privada de Cañete</p>
+        <h1>"José María Eguren"</h1>
+        <p class="institution-slogan">EDUCANDO CON VALORES Y EXCELENCIA</p>
+      </div>
+
+      <div class="header-logo">
+        <img src="MartinAburto.PNG" alt="Logo de la institución">
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- =========================
+       MENÚ DE NAVEGACIÓN
+  ========================== -->
+  <nav class="main-nav" aria-label="Menú principal">
+    <div class="nav-container">
+
+      <button class="menu-toggle"
+              id="menuToggle"
+              aria-label="Abrir menú"
+              aria-expanded="false"
+              aria-controls="mainMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-menu" id="mainMenu">
+        <li><a href="#" class="active">Inicio</a></li>
+        <li><a href="#quienes-somos">¿Quiénes somos?</a></li>
+        <li><a href="#propuesta">Propuesta educativa</a></li>
+        <li><a href="#admision">Admisión</a></li>
+        <li><a href="#Actividades">Actividades</a></li>
+        <li><a href="#contacto">Contáctanos</a></li>
+      </ul>
+
+    </div>
+  </nav>
+
+
+  <!-- =========================
+      PORTADA / HERO
+  ========================== -->
+  <main>
+    <section class="hero">
+
+      <!-- Capa transparente sobre la imagen -->
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <p class="hero-kicker">FORMANDO LÍDERES PARA EL FUTURO</p>
+
+        <h2>
+          BIENVENIDOS AL ÁREA DE<br>
+          EDUCACIÓN PARA EL TRABAJO<br>
+          JOSÉ MARÍA EGUREN
+        </h2>
+
+        <!--
+          Puedes agregar todos los botones que necesites.
+          El contenedor los centra automáticamente.
+        -->
+        <div class="hero-buttons">
+          <a href="#admision" class="btn btn-primary">ADMISIÓN 2027</a>
+          <a href="secundaria.html" class="btn btn-outline">AMBIENTES VIRTUALES</a>
+
+          <!-- Ejemplos:
+          <a href="#talleres" class="btn btn-outline">TALLERES</a>
+          <a href="#proyectos" class="btn btn-outline">PROYECTOS</a>
+          -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

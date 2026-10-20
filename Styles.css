@@ -1,0 +1,489 @@
+/* =========================================================
+   VARIABLES
+========================================================= */
+:root {
+  --verde-oscuro: #0c5a32;
+  --verde-principal: #167742;
+  --verde-claro: #78dc8c;
+  --verde-hover: #62cc79;
+  --blanco: #ffffff;
+  --texto-claro: #eefaf1;
+  --sombra-logo: rgba(2, 64, 34, 0.65);
+  --overlay-hero: rgba(8, 40, 28, 0.58);
+  --altura-cabecera: 215px;
+}
+
+
+/* =========================================================
+   REINICIO BÁSICO
+========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", Arial, sans-serif;
+  background: #ffffff;
+  color: #1e1e1e;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   CABECERA
+========================================================= */
+.site-header {
+  height: var(--altura-cabecera);
+  background: var(--verde-oscuro);
+  color: var(--blanco);
+}
+
+.header-content {
+  width: min(1440px, 92%);
+  height: 100%;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 190px 1fr 190px;
+  align-items: center;
+  gap: 28px;
+}
+
+.header-logo {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambos logos usan exactamente el mismo tamaño */
+.header-logo img {
+  height: 100%;
+  width: 150px;
+  object-fit: contain;
+  background: #0c5a32;
+  padding: 7px;
+
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 2px rgba(120, 220, 140, 0.30),
+    0 8px 20px var(--sombra-logo);
+}
+
+.header-text {
+  text-align: center;
+}
+
+.institution-type {
+  color: var(--verde-claro);
+  font-size: clamp(1.15rem, 2vw, 1.9rem);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.header-text h1 {
+  color: #d5f6dc;
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.institution-slogan {
+  margin-top: 16px;
+  color: var(--blanco);
+  font-size: clamp(0.75rem, 1.25vw, 1.05rem);
+  letter-spacing: 0.13em;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   MENÚ
+========================================================= */
+.main-nav {
+  position: relative;
+  z-index: 100;
+  background: var(--verde-principal);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.nav-container {
+  width: min(1100px, 94%);
+  margin: auto;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-menu {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+}
+
+.nav-menu a {
+  display: block;
+  color: var(--blanco);
+  padding: 18px 13px;
+  font-size: 0.96rem;
+  font-weight: 500;
+  transition: background-color .25s ease, color .25s ease;
+  border-radius: 4px;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  background: rgba(255, 255, 255, 0.10);
+  color: #dfffe6;
+}
+
+.menu-toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  padding: 7px;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  margin: 5px 0;
+  background: #ffffff;
+  border-radius: 3px;
+}
+
+
+/* =========================================================
+   HERO / PORTADA
+========================================================= */
+.hero {
+  min-height: calc(100vh - var(--altura-cabecera) - 58px);
+  position: relative;
+
+  /* Cambia esta imagen por la fotografía real del colegio */
+  background-image: url("ColegioEguren.PNG");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Capa transparente que cubre la fotografía */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-hero);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  text-align: center;
+  color: var(--blanco);
+  padding: 75px 20px 55px;
+}
+
+.hero-kicker {
+  margin-bottom: 22px;
+  font-size: clamp(0.8rem, 1.6vw, 1.05rem);
+  letter-spacing: 0.24em;
+  font-weight: 500;
+}
+
+.hero-content h2 {
+  font-size: clamp(2rem, 4.2vw, 3.45rem);
+  line-height: 1.15;
+  font-weight: 800;
+  text-wrap: balance;
+  text-shadow: 0 3px 9px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   BOTONES DEL HERO
+========================================================= */
+.hero-buttons {
+  margin-top: 42px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  gap: 18px;
+  width: 100%;
+}
+
+.btn {
+  min-width: 190px;
+  padding: 16px 27px;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition:
+    transform .2s ease,
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--verde-claro);
+  color: #164827;
+  border: 2px solid var(--verde-claro);
+}
+
+.btn-primary:hover {
+  background: var(--verde-hover);
+  border-color: var(--verde-hover);
+}
+
+.btn-outline {
+  color: var(--blanco);
+  border: 2px solid rgba(255,255,255,.9);
+  background: rgba(255,255,255,.03);
+}
+
+.btn-outline:hover {
+  background: var(--blanco);
+  color: var(--verde-oscuro);
+}
+
+
+/* =========================================================
+   RESPONSIVE: TABLET
+========================================================= */
+@media (max-width: 900px) {
+
+  :root {
+    --altura-cabecera: 180px;
+  }
+
+  .header-content {
+    grid-template-columns: 130px 1fr 130px;
+    width: 94%;
+    gap: 15px;
+  }
+
+  .header-logo {
+    height: 70%;
+  }
+
+  .header-logo img {
+    width: 110px;
+  }
+
+  .institution-slogan {
+    margin-top: 10px;
+  }
+
+  .nav-container {
+    width: 100%;
+    padding: 0 18px;
+    justify-content: flex-end;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--verde-principal);
+    box-shadow: 0 8px 15px rgba(0,0,0,.18);
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-menu li {
+    width: 100%;
+  }
+
+  .nav-menu a {
+    padding: 14px 24px;
+    border-radius: 0;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+
+  .hero {
+    min-height: calc(100vh - var(--altura-cabecera) - 58px);
+  }
+
+  .hero-content {
+    padding-top: 55px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE: CELULARES
+========================================================= */
+@media (max-width: 600px) {
+
+  :root {
+    --altura-cabecera: auto;
+  }
+
+  .site-header {
+    height: auto;
+    min-height: 190px;
+    padding: 16px 0;
+  }
+
+  .header-content {
+    width: 94%;
+    height: auto;
+    grid-template-columns: 74px 1fr 74px;
+    gap: 10px;
+  }
+
+  .header-logo {
+    height: 76px;
+  }
+
+  .header-logo img {
+    width: 72px;
+    height: 72px;
+    padding: 4px;
+  }
+
+  .institution-type {
+    font-size: 0.88rem;
+  }
+
+  .header-text h1 {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .institution-slogan {
+    font-size: 0.60rem;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    margin-top: 9px;
+  }
+
+  .hero {
+    min-height: 620px;
+    background-position: center;
+  }
+
+  .hero-content {
+    width: 94%;
+    padding: 55px 10px 45px;
+  }
+
+  .hero-kicker {
+    margin-bottom: 18px;
+    letter-spacing: 0.16em;
+  }
+
+  .hero-content h2 {
+    font-size: clamp(1.75rem, 8vw, 2.45rem);
+    line-height: 1.16;
+  }
+
+  .hero-buttons {
+    margin-top: 32px;
+    gap: 12px;
+  }
+
+  .btn {
+    width: min(320px, 100%);
+    min-width: 0;
+  }
+}
+
+
+/* =========================================================
+   PANTALLAS MUY PEQUEÑAS
+========================================================= */
+@media (max-width: 380px) {
+
+  .header-content {
+    grid-template-columns: 58px 1fr 58px;
+  }
+
+  .header-logo,
+  .header-logo img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .institution-type {
+    font-size: 0.73rem;
+  }
+
+  .header-text h1 {
+    font-size: 1.35rem;
+  }
+
+  .institution-slogan {
+    font-size: 0.52rem;
+  }
+}
+
+
+/* =========================================================
+PANTALLAS GRANDES
+========================================================= */
+@media (min-width: 1500px) {
+
+:root {
+    --altura-cabecera: 235px;
+}
+
+  .header-content {
+    max-width: 1500px;
+  }
+
+  .header-logo img {
+    width: 165px;
+  }
+
+  .hero-content {
+    max-width: 1250px;
+  }
+}

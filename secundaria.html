@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nivel Secundaria</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#e9f5ec;
+  font-family:Arial,sans-serif;
+}
+
+/* La portada ocupa siempre exactamente toda la pantalla disponible */
+.portada{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  background:#fff;
+}
+
+/* La imagen llena todo el ancho y todo el alto de la pantalla */
+.portada img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:fill;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+/* Zonas transparentes clicables sobre cada grado */
+.grado{
+  position:absolute;
+  z-index:5;
+  display:block;
+  background:transparent;
+  border:0;
+  border-radius:18px;
+  cursor:pointer;
+}
+
+/* Posiciones proporcionales: se mantienen al cambiar de resolución */
+.grado-1{left:25.8%;top:37.2%;width:8.7%;height:21.8%}
+.grado-2{left:35.4%;top:37.2%;width:8.7%;height:21.8%}
+.grado-3{left:46.0%;top:37.2%;width:8.7%;height:21.8%}
+.grado-4{left:55.6%;top:37.2%;width:8.7%;height:21.8%}
+.grado-5{left:66%;top:37.2%;width:8%;height:21.8%}
+
+.grado:hover,.grado:focus-visible{
+  background:rgba(255,255,255,.10);
+  box-shadow:0 0 0 4px rgba(13,104,60,.40);
+}
+
+@media(max-width:700px){
+  .grado{border-radius:8px}
+  .grado:hover,.grado:focus-visible{
+    box-shadow:0 0 0 2px rgba(13,104,60,.45);
+  }
+}
+</style>
+</head>
+<body>
+<main class="portada">
+<img src="portada-secundaria.png" alt="Bienvenidos al nivel secundaria">
+<a class="grado grado-1" href="primero.html" aria-label="Ir a Primero de Secundaria" title="1° de Secundaria"></a>
+<a class="grado grado-2" href="segundo.html" aria-label="Ir a Segundo de Secundaria" title="2° de Secundaria"></a>
+<a class="grado grado-3" href="tercero.html" aria-label="Ir a Tercero de Secundaria" title="3° de Secundaria"></a>
+<a class="grado grado-4" href="cuarto.html" aria-label="Ir a Cuarto de Secundaria" title="4° de Secundaria"></a>
+<a class="grado grado-5" href="quinto.html" aria-label="Ir a Quinto de Secundaria" title="5° de Secundaria"></a>
+</main>
+</body>
+</html>
