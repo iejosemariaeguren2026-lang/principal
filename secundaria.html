@@ -21,7 +21,7 @@ html,body{
   font-family:Arial,sans-serif;
 }
 
-/* La portada ocupa toda la pantalla */
+/* PORTADA ORIGINAL */
 .portada{
   position:relative;
   width:100vw;
@@ -30,7 +30,6 @@ html,body{
   background:#fff;
 }
 
-/* Imagen original, sin modificaciones */
 .portada img{
   position:absolute;
   inset:0;
@@ -42,7 +41,7 @@ html,body{
   -webkit-user-drag:none;
 }
 
-/* Zonas transparentes sobre cada grado */
+/* ENLACES ORIGINALES DE LOS GRADOS */
 .grado{
   position:absolute;
   z-index:5;
@@ -53,7 +52,6 @@ html,body{
   cursor:pointer;
 }
 
-/* Se conservan las posiciones originales */
 .grado-1{
   left:25.8%;
   top:37.2%;
@@ -95,7 +93,57 @@ html,body{
   box-shadow:0 0 0 4px rgba(13,104,60,.40);
 }
 
+/* NUEVO BOTÓN DE MATERIALES */
+.boton-materiales{
+  position:absolute;
+  z-index:10;
+
+  /* Debajo de los grados, sobre la puerta */
+  left:50%;
+  top:67%;
+  transform:translateX(-50%);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  padding:13px 24px;
+  min-width:235px;
+
+  background:#173b70;
+  color:#fff;
+
+  border:2px solid #ffffff;
+  border-radius:30px;
+
+  box-shadow:0 5px 15px rgba(0,0,0,.25);
+
+  font-size:15px;
+  font-weight:bold;
+  text-decoration:none;
+  white-space:nowrap;
+
+  transition:background .2s,box-shadow .2s;
+}
+
+.boton-materiales:hover,
+.boton-materiales:focus-visible{
+  background:#2463a8;
+  box-shadow:0 7px 18px rgba(0,0,0,.35);
+  outline:2px solid #ffffff;
+  outline-offset:2px;
+}
+
+.boton-materiales svg{
+  width:21px;
+  height:21px;
+  flex-shrink:0;
+}
+
+/* ADAPTACIÓN A CELULARES */
 @media(max-width:700px){
+
   .grado{
     border-radius:8px;
   }
@@ -103,6 +151,20 @@ html,body{
   .grado:hover,
   .grado:focus-visible{
     box-shadow:0 0 0 2px rgba(13,104,60,.45);
+  }
+
+  .boton-materiales{
+    top:65%;
+    min-width:0;
+    padding:9px 12px;
+    font-size:10px;
+    gap:5px;
+    border-width:1px;
+  }
+
+  .boton-materiales svg{
+    width:15px;
+    height:15px;
   }
 }
 </style>
@@ -112,54 +174,74 @@ html,body{
 
 <main class="portada">
 
-  <!-- Portada original -->
+  <!-- IMAGEN ORIGINAL SIN MODIFICACIONES -->
   <img
     src="portada-secundaria.png"
     alt="Bienvenidos al nivel secundaria"
   >
 
-  <!-- PRIMERO -->
+  <!-- LOS CINCO GRADOS CONSERVAN SUS PÁGINAS -->
+
   <a
     class="grado grado-1"
-    href="materiales.html?grado=1"
-    aria-label="Materiales de Primero de Secundaria"
+    href="primero.html"
+    aria-label="Ir a Primero de Secundaria"
     title="1.º de Secundaria">
   </a>
 
-  <!-- SEGUNDO -->
   <a
     class="grado grado-2"
-    href="materiales.html?grado=2"
-    aria-label="Materiales de Segundo de Secundaria"
+    href="segundo.html"
+    aria-label="Ir a Segundo de Secundaria"
     title="2.º de Secundaria">
   </a>
 
-  <!-- TERCERO -->
   <a
     class="grado grado-3"
-    href="materiales.html?grado=3"
-    aria-label="Materiales de Tercero de Secundaria"
+    href="tercero.html"
+    aria-label="Ir a Tercero de Secundaria"
     title="3.º de Secundaria">
   </a>
 
-  <!-- CUARTO -->
   <a
     class="grado grado-4"
-    href="materiales.html?grado=4"
-    aria-label="Materiales de Cuarto de Secundaria"
+    href="cuarto.html"
+    aria-label="Ir a Cuarto de Secundaria"
     title="4.º de Secundaria">
   </a>
 
-  <!-- QUINTO -->
   <a
     class="grado grado-5"
-    href="materiales.html?grado=5"
-    aria-label="Materiales de Quinto de Secundaria"
+    href="quinto.html"
+    aria-label="Ir a Quinto de Secundaria"
     title="5.º de Secundaria">
+  </a>
+
+  <!-- BOTÓN INDEPENDIENTE DE MATERIALES -->
+
+  <a
+    class="boton-materiales"
+    href="materiales.html"
+    aria-label="Acceder a materiales educativos">
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true">
+
+      <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <path d="M3 11h18"/>
+    </svg>
+
+    MATERIALES EDUCATIVOS
+
   </a>
 
 </main>
 
 </body>
 </html>
-
