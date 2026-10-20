@@ -1,0 +1,709 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materiales EPT - José María Eguren</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #eef3f9;
+  color: #243247;
+}
+
+header {
+  background: linear-gradient(120deg, #173b70, #2867ad);
+  color: white;
+  text-align: center;
+  padding: 32px 15px;
+}
+
+header h1 {
+  margin: 0 0 10px;
+  font-size: 28px;
+}
+
+header p {
+  margin: 0;
+}
+
+main {
+  max-width: 1100px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
+
+.panel {
+  background: white;
+  padding: 24px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px #00000012;
+}
+
+h2 {
+  color: #173b70;
+  font-size: 21px;
+  margin-top: 0;
+}
+
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccd5e0;
+  border-radius: 8px;
+  font-size: 15px;
+  background: white;
+}
+
+.materiales {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+}
+
+.material {
+  border: 1px solid #dce3ec;
+  border-radius: 12px;
+  padding: 18px;
+  background: #fbfcff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.material h3 {
+  color: #173b70;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.material p {
+  margin: 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.tipo {
+  color: #65758b;
+  font-size: 13px;
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.boton {
+  display: inline-block;
+  background: #175cd3;
+  color: white;
+  border: 1px solid #175cd3;
+  border-radius: 7px;
+  padding: 10px 12px;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.boton.claro {
+  background: white;
+  color: #175cd3;
+}
+
+.aviso {
+  text-align: center;
+  padding: 25px;
+  background: #f5f8fc;
+  border-radius: 9px;
+  color: #58677c;
+}
+
+.oculto {
+  display: none !important;
+}
+
+.visor-fondo {
+  position: fixed;
+  inset: 0;
+  background: #061b37bb;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.visor {
+  background: white;
+  border-radius: 12px;
+  width: min(100%, 1050px);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.visor-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  gap: 10px;
+}
+
+.visor-cabecera strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.visor iframe {
+  width: 100%;
+  flex: 1;
+  border: none;
+}
+
+.cerrar {
+  background: #c62828;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #65758b;
+  font-size: 13px;
+}
+
+@media (max-width: 650px) {
+  .filtros {
+    grid-template-columns: 1fr;
+  }
+
+  header h1 {
+    font-size: 23px;
+  }
+
+  .panel {
+    padding: 17px;
+  }
+
+  .visor-fondo {
+    padding: 5px;
+  }
+
+  .visor {
+    height: 95vh;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Mis materiales de aprendizaje</h1>
+  <p>Educación para el Trabajo</p>
+  <p>Institución Educativa José María Eguren</p>
+</header>
+
+<main>
+
+<section class="panel">
+  <h2>Selecciona tus materiales</h2>
+
+  <div class="filtros">
+
+    <div>
+      <label for="grado">Grado</label>
+      <select id="grado">
+        <option value="1">1.º secundaria</option>
+        <option value="2">2.º secundaria</option>
+        <option value="3">3.º secundaria</option>
+        <option value="4">4.º secundaria</option>
+        <option value="5">5.º secundaria</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="bimestre">Bimestre</label>
+      <select id="bimestre">
+        <option value="1">I bimestre</option>
+        <option value="2">II bimestre</option>
+        <option value="3">III bimestre</option>
+        <option value="4">IV bimestre</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="semana">Semana</label>
+      <select id="semana">
+        <option value="1">Semana 1</option>
+        <option value="2">Semana 2</option>
+        <option value="3">Semana 3</option>
+        <option value="4">Semana 4</option>
+        <option value="5">Semana 5</option>
+        <option value="6">Semana 6</option>
+        <option value="7">Semana 7</option>
+        <option value="8">Semana 8</option>
+        <option value="9">Semana 9</option>
+        <option value="10">Semana 10</option>
+      </select>
+    </div>
+
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Materiales disponibles</h2>
+
+  <p id="cantidad"></p>
+
+  <div id="estado" class="aviso" role="status">
+    Cargando materiales publicados...
+  </div>
+
+  <div id="materiales" class="materiales"></div>
+</section>
+
+</main>
+
+<footer>
+  Materiales educativos de Educación para el Trabajo
+</footer>
+
+<!-- VISOR DE DOCUMENTOS -->
+
+<div id="visorFondo"
+     class="visor-fondo oculto"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Visor de material">
+
+  <div class="visor">
+
+    <div class="visor-cabecera">
+      <strong id="visorTitulo">
+        Visualizar material
+      </strong>
+
+      <button id="cerrarVisor"
+              class="cerrar"
+              type="button">
+        Cerrar ✕
+      </button>
+    </div>
+
+    <iframe id="visorMarco"
+            title="Vista previa del material">
+    </iframe>
+
+  </div>
+</div>
+
+<script type="module">
+
+// CONEXIÓN CON FIREBASE
+
+import { db } from "./firebase-config.js";
+
+import {
+  collection,
+  getDocs,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+
+const $ = id => document.getElementById(id);
+
+let materiales = [];
+let botonAnterior = null;
+
+
+// COMPROBAR ENLACES
+
+function enlaceValido(valor) {
+  try {
+    const url = new URL(valor);
+
+    if (url.protocol === "https:" ||
+        url.protocol === "http:") {
+      return url.href;
+    }
+
+    return null;
+
+  } catch {
+    return null;
+  }
+}
+
+
+// IDENTIFICAR ARCHIVOS DE GOOGLE DRIVE
+
+function obtenerDriveId(enlace) {
+
+  try {
+    const url = new URL(enlace);
+
+    if (url.hostname !== "drive.google.com") {
+      return null;
+    }
+
+    const coincidencia = url.pathname.match(
+      /\/file\/d\/([a-zA-Z0-9_-]+)/
+    );
+
+    if (coincidencia) {
+      return coincidencia[1];
+    }
+
+    if (url.pathname === "/open" ||
+        url.pathname === "/uc") {
+      return url.searchParams.get("id");
+    }
+
+  } catch {}
+
+  return null;
+}
+
+
+// PREPARAR VISTA PREVIA
+
+function obtenerVistaPrevia(material) {
+
+  const enlace = enlaceValido(material.enlace);
+
+  if (!enlace) {
+    return null;
+  }
+
+  const driveId = obtenerDriveId(enlace);
+
+  if (driveId) {
+    return "https://drive.google.com/file/d/" +
+      encodeURIComponent(driveId) +
+      "/preview";
+  }
+
+  try {
+
+    const url = new URL(enlace);
+
+    if (url.hostname === "www.youtube.com" ||
+        url.hostname === "youtube.com") {
+
+      const id = url.searchParams.get("v");
+
+      if (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) {
+        return "https://www.youtube-nocookie.com/embed/" + id;
+      }
+    }
+
+    if (url.hostname === "youtu.be") {
+
+      const id = url.pathname.slice(1);
+
+      if (/^[a-zA-Z0-9_-]{11}$/.test(id)) {
+        return "https://www.youtube-nocookie.com/embed/" + id;
+      }
+    }
+
+    if (url.pathname.toLowerCase().endsWith(".pdf")) {
+      return enlace;
+    }
+
+  } catch {}
+
+  return null;
+}
+
+
+// PREPARAR DESCARGA
+
+function obtenerDescarga(material) {
+
+  const enlace = enlaceValido(material.enlace);
+
+  if (!enlace || material.tipo !== "PDF") {
+    return null;
+  }
+
+  const driveId = obtenerDriveId(enlace);
+
+  if (driveId) {
+    return "https://drive.google.com/uc?export=download&id=" +
+      encodeURIComponent(driveId);
+  }
+
+  return enlace;
+}
+
+
+// ABRIR VISOR
+
+function abrirVisor(material, boton) {
+
+  const vista = obtenerVistaPrevia(material);
+
+  if (!vista) {
+    return;
+  }
+
+  botonAnterior = boton;
+
+  $("visorTitulo").textContent =
+    material.titulo || "Visualizar material";
+
+  $("visorMarco").src = vista;
+
+  $("visorFondo").classList.remove("oculto");
+
+  $("cerrarVisor").focus();
+}
+
+
+// CERRAR VISOR
+
+function cerrarVisor() {
+
+  $("visorFondo").classList.add("oculto");
+
+  $("visorMarco").removeAttribute("src");
+
+  if (botonAnterior) {
+    botonAnterior.focus();
+  }
+}
+
+$("cerrarVisor").addEventListener(
+  "click",
+  cerrarVisor
+);
+
+$("visorFondo").addEventListener("click", e => {
+  if (e.target === $("visorFondo")) {
+    cerrarVisor();
+  }
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    cerrarVisor();
+  }
+});
+
+
+// CREAR ENLACES
+
+function crearEnlace(texto, direccion, clase = "") {
+
+  const enlace = document.createElement("a");
+
+  enlace.className = "boton " + clase;
+  enlace.textContent = texto;
+  enlace.href = direccion;
+  enlace.target = "_blank";
+  enlace.rel = "noopener noreferrer";
+
+  return enlace;
+}
+
+
+// MOSTRAR MATERIALES
+
+function mostrarMateriales() {
+
+  const grado = $("grado").value;
+  const bimestre = $("bimestre").value;
+  const semana = $("semana").value;
+
+  const filtrados = materiales.filter(material => {
+
+    return String(material.grado) === grado &&
+           String(material.bimestre) === bimestre &&
+           String(material.semana) === semana;
+
+  });
+
+  const contenedor = $("materiales");
+
+  contenedor.replaceChildren();
+
+  $("cantidad").textContent =
+    filtrados.length + " material(es) encontrado(s)";
+
+  if (filtrados.length === 0) {
+
+    $("estado").classList.remove("oculto");
+
+    $("estado").textContent =
+      "Todavía no hay materiales publicados " +
+      "para este grado, bimestre y semana.";
+
+    return;
+  }
+
+  $("estado").classList.add("oculto");
+
+  filtrados.forEach(material => {
+
+    const tarjeta = document.createElement("article");
+    tarjeta.className = "material";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent =
+      material.titulo || "Material sin título";
+
+    const tipo = document.createElement("p");
+    tipo.className = "tipo";
+    tipo.textContent =
+      material.tipo || "Recurso educativo";
+
+    const descripcion = document.createElement("p");
+    descripcion.textContent =
+      material.descripcion || "";
+
+    const acciones = document.createElement("div");
+    acciones.className = "acciones";
+
+    // BOTÓN VISUALIZAR
+
+    if (obtenerVistaPrevia(material)) {
+
+      const visualizar = document.createElement("button");
+
+      visualizar.type = "button";
+      visualizar.className = "boton";
+      visualizar.textContent = "👁 Visualizar";
+
+      visualizar.addEventListener("click", () => {
+        abrirVisor(material, visualizar);
+      });
+
+      acciones.appendChild(visualizar);
+    }
+
+    // BOTÓN DESCARGAR
+
+    const descarga = obtenerDescarga(material);
+
+    if (descarga) {
+      acciones.appendChild(
+        crearEnlace("⬇ Descargar", descarga, "claro")
+      );
+    }
+
+    // BOTÓN ABRIR
+
+    const enlace = enlaceValido(material.enlace);
+
+    if (enlace) {
+      acciones.appendChild(
+        crearEnlace("↗ Abrir", enlace, "claro")
+      );
+    }
+
+    tarjeta.append(
+      titulo,
+      tipo,
+      descripcion,
+      acciones
+    );
+
+    contenedor.appendChild(tarjeta);
+
+  });
+
+}
+
+
+// CAMBIAR FILTROS
+
+["grado", "bimestre", "semana"].forEach(id => {
+
+  $(id).addEventListener(
+    "change",
+    mostrarMateriales
+  );
+
+});
+
+
+// CONSULTAR FIRESTORE
+
+async function cargarMateriales() {
+
+  try {
+
+    // Solo consultar materiales publicados.
+    const consulta = query(
+      collection(db, "materiales"),
+      where("publicado", "==", true)
+    );
+
+    const resultado = await getDocs(consulta);
+
+    materiales = resultado.docs.map(documento => ({
+      id: documento.id,
+      ...documento.data()
+    }));
+
+    materiales.sort((a, b) => {
+      return (a.titulo || "").localeCompare(
+        b.titulo || "",
+        "es"
+      );
+    });
+
+    mostrarMateriales();
+
+  } catch (error) {
+
+    console.error(error);
+
+    $("estado").classList.remove("oculto");
+
+    $("estado").textContent =
+      "No se pudieron cargar los materiales. " +
+      "Comprueba la conexión con Firebase.";
+
+  }
+
+}
+
+cargarMateriales();
+
+</script>
+
+</body>
+</html>

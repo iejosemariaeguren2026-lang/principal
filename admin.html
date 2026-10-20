@@ -1,0 +1,1329 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel EPT | José María Eguren</title>
+
+<style>
+:root {
+  --azul: #173b70;
+  --principal: #175cd3;
+  --fondo: #eef3f9;
+  --borde: #dce3ec;
+  --texto: #243247;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+header {
+  background: var(--azul);
+  color: white;
+  text-align: center;
+  padding: 22px 15px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+}
+
+header p {
+  margin: 0;
+}
+
+main {
+  max-width: 1250px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
+
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 13px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 18px #00000012;
+}
+
+.login {
+  max-width: 420px;
+  margin: 60px auto;
+}
+
+h2 {
+  color: var(--azul);
+  margin: 0 0 16px;
+  font-size: 21px;
+}
+
+h3 {
+  color: var(--azul);
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 10px 0 5px;
+  font-size: 14px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccd5e0;
+  border-radius: 7px;
+  background: white;
+  font: inherit;
+}
+
+textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+button {
+  background: var(--principal);
+  color: white;
+  border: 0;
+  border-radius: 7px;
+  padding: 11px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(0.93);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secundario {
+  background: #65758b;
+}
+
+.peligro {
+  background: #c62828;
+}
+
+.verde {
+  background: #087443;
+}
+
+.oculto {
+  display: none !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.completo {
+  grid-column: 1 / -1;
+}
+
+.barra-superior,
+.barra-acciones,
+.paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.barra-acciones {
+  justify-content: flex-start;
+  margin-top: 18px;
+}
+
+.mensaje {
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.correcto {
+  color: #087443;
+}
+
+.error {
+  color: #b42318;
+}
+
+.aviso-edicion {
+  background: #fff7df;
+  border: 1px solid #e8c76a;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.filtros {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.filtros label {
+  margin-top: 0;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+  border: 1px solid var(--borde);
+  border-radius: 9px;
+}
+
+.tabla-materiales {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.tabla-materiales th {
+  background: var(--azul);
+  color: white;
+  text-align: left;
+  padding: 12px 10px;
+}
+
+.tabla-materiales td {
+  padding: 9px 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-materiales tr:nth-child(even) {
+  background: #f7faff;
+}
+
+.tabla-materiales tbody tr:hover {
+  background: #eaf2ff;
+}
+
+.titulo-celda {
+  max-width: 230px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+
+.estado-publicado {
+  color: #087443;
+  font-weight: bold;
+}
+
+.estado-borrador {
+  color: #a16207;
+  font-weight: bold;
+}
+
+.acciones {
+  display: flex;
+  gap: 5px;
+}
+
+.acciones button,
+.acciones a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 32px;
+  padding: 0;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.acciones .abrir {
+  background: #175cd3;
+}
+
+.acciones .editar {
+  background: #d48a15;
+}
+
+.acciones .borrar {
+  background: #c62828;
+}
+
+.paginacion {
+  margin-top: 16px;
+}
+
+.paginacion button {
+  padding: 8px 12px;
+}
+
+.paginacion select {
+  width: auto;
+}
+
+.contador {
+  font-size: 13px;
+  color: #58677c;
+}
+
+@media (max-width: 850px) {
+  .filtros {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filtro-busqueda {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid,
+  .filtros {
+    grid-template-columns: 1fr;
+  }
+
+  .filtro-busqueda {
+    grid-column: auto;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Panel de Administración EPT</h1>
+  <p>Institución Educativa José María Eguren</p>
+</header>
+
+<main>
+
+<!-- ACCESO -->
+
+<section id="seccionLogin" class="card login">
+  <h2>Acceso del administrador</h2>
+
+  <form id="formLogin">
+    <label for="correo">Correo electrónico</label>
+    <input id="correo" type="email"
+           autocomplete="username" required>
+
+    <label for="clave">Contraseña</label>
+    <input id="clave" type="password"
+           autocomplete="current-password" required>
+
+    <div class="barra-acciones">
+      <button id="btnLogin" type="submit">
+        Ingresar
+      </button>
+    </div>
+  </form>
+
+  <p id="mensajeLogin" class="mensaje" role="status"></p>
+</section>
+
+<!-- PANEL -->
+
+<section id="panel" class="oculto">
+
+  <div class="card barra-superior">
+    <div>
+      <h2>Bienvenido al panel</h2>
+      <p>Administración de recursos educativos</p>
+    </div>
+
+    <button id="btnSalir" class="secundario">
+      Cerrar sesión
+    </button>
+  </div>
+
+  <!-- FORMULARIO -->
+
+  <div class="card" id="seccionFormulario">
+
+    <h2 id="tituloFormulario">
+      Publicar material educativo
+    </h2>
+
+    <div id="avisoEdicion"
+         class="aviso-edicion oculto">
+      Estás editando un material existente.
+      Los cambios reemplazarán sus datos anteriores.
+    </div>
+
+    <form id="formMaterial">
+
+      <div class="grid">
+
+        <div>
+          <label for="grado">Grado</label>
+          <select id="grado" required>
+            <option value="">Seleccionar grado</option>
+            <option value="1">1.º secundaria</option>
+            <option value="2">2.º secundaria</option>
+            <option value="3">3.º secundaria</option>
+            <option value="4">4.º secundaria</option>
+            <option value="5">5.º secundaria</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="bimestre">Bimestre</label>
+          <select id="bimestre" required>
+            <option value="">Seleccionar bimestre</option>
+            <option value="1">I bimestre</option>
+            <option value="2">II bimestre</option>
+            <option value="3">III bimestre</option>
+            <option value="4">IV bimestre</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="semana">Semana</label>
+          <select id="semana" required>
+            <option value="">Seleccionar semana</option>
+            <option value="1">Semana 1</option>
+            <option value="2">Semana 2</option>
+            <option value="3">Semana 3</option>
+            <option value="4">Semana 4</option>
+            <option value="5">Semana 5</option>
+            <option value="6">Semana 6</option>
+            <option value="7">Semana 7</option>
+            <option value="8">Semana 8</option>
+            <option value="9">Semana 9</option>
+            <option value="10">Semana 10</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="tipo">Tipo de material</label>
+          <select id="tipo" required>
+            <option value="">Seleccionar tipo</option>
+            <option value="PDF">Documento PDF</option>
+            <option value="Video">Video</option>
+            <option value="Presentación">Presentación</option>
+            <option value="Actividad">Actividad</option>
+            <option value="Otro">Otro recurso</option>
+          </select>
+        </div>
+
+        <div class="completo">
+          <label for="titulo">Título del material</label>
+          <input id="titulo" type="text"
+                 maxlength="150"
+                 placeholder="Ejemplo: Introducción a Arduino"
+                 required>
+        </div>
+
+        <div class="completo">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" maxlength="1000"
+                    placeholder="Describe el material"></textarea>
+        </div>
+
+        <div class="completo">
+          <label for="enlace">Enlace del material</label>
+          <input id="enlace" type="url"
+                 placeholder="https://..."
+                 required>
+        </div>
+
+        <div class="completo">
+          <label>
+            <input id="publicado" type="checkbox"
+                   style="width:auto" checked>
+            Publicar para los estudiantes
+          </label>
+        </div>
+
+      </div>
+
+      <div class="barra-acciones">
+        <button id="btnGuardar" type="submit">
+          Guardar material
+        </button>
+
+        <button id="btnCancelarEdicion"
+                type="button"
+                class="secundario oculto">
+          Cancelar edición
+        </button>
+      </div>
+
+      <p id="mensajeMaterial"
+         class="mensaje" role="status"></p>
+
+    </form>
+
+  </div>
+
+  <!-- LISTADO -->
+
+  <div class="card">
+
+    <h2>Materiales registrados</h2>
+
+    <p>Busca, filtra y administra los materiales
+       guardados en Cloud Firestore.</p>
+
+    <div class="filtros">
+
+      <div class="filtro-busqueda">
+        <label for="buscar">Buscar material</label>
+        <input id="buscar" type="search"
+               placeholder="Título o descripción...">
+      </div>
+
+      <div>
+        <label for="filtroGrado">Grado</label>
+        <select id="filtroGrado">
+          <option value="">Todos</option>
+          <option value="1">1.º</option>
+          <option value="2">2.º</option>
+          <option value="3">3.º</option>
+          <option value="4">4.º</option>
+          <option value="5">5.º</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="filtroBimestre">Bimestre</label>
+        <select id="filtroBimestre">
+          <option value="">Todos</option>
+          <option value="1">I</option>
+          <option value="2">II</option>
+          <option value="3">III</option>
+          <option value="4">IV</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="filtroSemana">Semana</label>
+        <select id="filtroSemana">
+          <option value="">Todas</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="filtroEstado">Estado</label>
+        <select id="filtroEstado">
+          <option value="">Todos</option>
+          <option value="publicado">Publicado</option>
+          <option value="borrador">Borrador</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="barra-acciones">
+      <button id="btnActualizar" class="secundario">
+        Actualizar lista
+      </button>
+
+      <button id="btnLimpiar" class="secundario">
+        Limpiar filtros
+      </button>
+    </div>
+
+    <p id="mensajeLista" class="mensaje"
+       role="status"></p>
+
+    <div class="tabla-contenedor">
+      <table class="tabla-materiales">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Grado</th>
+            <th>Bim.</th>
+            <th>Sem.</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla"></tbody>
+      </table>
+    </div>
+
+    <div class="paginacion">
+
+      <div>
+        <label for="porPagina">
+          Materiales por página
+        </label>
+        <select id="porPagina">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+
+      <span id="contador" class="contador"></span>
+
+      <div>
+        <button id="btnAnterior" class="secundario">
+          Anterior
+        </button>
+
+        <span id="indicadorPagina">Página 1 de 1</span>
+
+        <button id="btnSiguiente" class="secundario">
+          Siguiente
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+</main>
+
+<script type="module">
+
+// IMPORTAR FIREBASE
+
+import { auth, db } from "./firebase-config.js";
+
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+import {
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  doc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js";
+
+
+// IDENTIFICADOR DEL ADMINISTRADOR
+
+const ADMIN_UID = "SiLaaRbUBkPTEerUKvgx6TJCVF63";
+
+
+// ELEMENTOS
+
+const $ = id => document.getElementById(id);
+
+let materiales = [];
+let paginaActual = 1;
+let idEnEdicion = null;
+let guardando = false;
+
+
+// SEGURIDAD
+
+function esAdministrador(usuario) {
+  return !!usuario && usuario.uid === ADMIN_UID;
+}
+
+function mensaje(id, texto, correcto = true) {
+  const elemento = $(id);
+  elemento.textContent = texto;
+  elemento.className =
+    "mensaje " + (correcto ? "correcto" : "error");
+}
+
+function enlaceValido(valor) {
+  try {
+    const url = new URL(valor);
+    return url.protocol === "https:" ||
+           url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
+
+// AUTENTICACIÓN
+
+onAuthStateChanged(auth, async usuario => {
+
+  if (esAdministrador(usuario)) {
+
+    $("seccionLogin").classList.add("oculto");
+    $("panel").classList.remove("oculto");
+
+    await cargarMateriales();
+
+  } else {
+
+    $("panel").classList.add("oculto");
+    $("seccionLogin").classList.remove("oculto");
+
+    materiales = [];
+    renderizarTabla();
+
+    if (usuario) {
+      mensaje(
+        "mensajeLogin",
+        "Esta cuenta no está autorizada.",
+        false
+      );
+
+      await signOut(auth);
+    }
+  }
+
+});
+
+
+$("formLogin").addEventListener("submit", async e => {
+
+  e.preventDefault();
+
+  const boton = $("btnLogin");
+  boton.disabled = true;
+
+  mensaje("mensajeLogin", "Verificando acceso...");
+
+  try {
+
+    const resultado = await signInWithEmailAndPassword(
+      auth,
+      $("correo").value.trim(),
+      $("clave").value
+    );
+
+    if (!esAdministrador(resultado.user)) {
+      await signOut(auth);
+      throw new Error("Acceso no autorizado");
+    }
+
+    $("clave").value = "";
+    mensaje("mensajeLogin", "Acceso autorizado.");
+
+  } catch (error) {
+
+    console.error(error.code || error.message);
+
+    mensaje(
+      "mensajeLogin",
+      "No se pudo ingresar. Revisa el correo y la contraseña registrados en Firebase.",
+      false
+    );
+
+  } finally {
+    boton.disabled = false;
+  }
+
+});
+
+
+$("btnSalir").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    cancelarEdicion();
+  } catch (error) {
+    console.error(error);
+    alert("No se pudo cerrar sesión.");
+  }
+});
+
+
+// GUARDAR O ACTUALIZAR MATERIAL
+
+$("formMaterial").addEventListener("submit", async e => {
+
+  e.preventDefault();
+
+  if (!esAdministrador(auth.currentUser) || guardando) {
+    return;
+  }
+
+  const datos = {
+    grado: $("grado").value,
+    bimestre: $("bimestre").value,
+    semana: $("semana").value,
+    tipo: $("tipo").value,
+    titulo: $("titulo").value.trim(),
+    descripcion: $("descripcion").value.trim(),
+    enlace: $("enlace").value.trim(),
+    publicado: $("publicado").checked
+  };
+
+  if (!enlaceValido(datos.enlace)) {
+    mensaje(
+      "mensajeMaterial",
+      "Introduce un enlace HTTP o HTTPS válido.",
+      false
+    );
+    return;
+  }
+
+  guardando = true;
+  $("btnGuardar").disabled = true;
+
+  mensaje(
+    "mensajeMaterial",
+    idEnEdicion
+      ? "Actualizando material..."
+      : "Guardando material..."
+  );
+
+  try {
+
+    if (idEnEdicion) {
+
+      await updateDoc(
+        doc(db, "materiales", idEnEdicion),
+        {
+          ...datos,
+          fechaActualizacion: serverTimestamp()
+        }
+      );
+
+    } else {
+
+      await addDoc(collection(db, "materiales"), {
+        ...datos,
+        creadoPor: auth.currentUser.uid,
+        fechaCreacion: serverTimestamp()
+      });
+
+    }
+
+    const fueEdicion = !!idEnEdicion;
+
+    cancelarEdicion();
+
+    mensaje(
+      "mensajeMaterial",
+      fueEdicion
+        ? "Material actualizado correctamente."
+        : "Material guardado correctamente."
+    );
+
+    await cargarMateriales();
+
+  } catch (error) {
+
+    console.error(error);
+
+    mensaje(
+      "mensajeMaterial",
+      "No se pudo guardar. Revisa los permisos de Firestore.",
+      false
+    );
+
+  } finally {
+
+    guardando = false;
+    $("btnGuardar").disabled = false;
+
+  }
+
+});
+
+
+// EDITAR MATERIAL
+
+function editarMaterial(id) {
+
+  if (!esAdministrador(auth.currentUser)) {
+    return;
+  }
+
+  const material = materiales.find(m => m.id === id);
+
+  if (!material) {
+    alert("No se encontró el material.");
+    return;
+  }
+
+  idEnEdicion = id;
+
+  $("grado").value = material.grado || "";
+  $("bimestre").value = material.bimestre || "";
+  $("semana").value = material.semana || "";
+  $("tipo").value = material.tipo || "";
+  $("titulo").value = material.titulo || "";
+  $("descripcion").value = material.descripcion || "";
+  $("enlace").value = material.enlace || "";
+  $("publicado").checked = material.publicado === true;
+
+  $("tituloFormulario").textContent =
+    "Editar material educativo";
+
+  $("btnGuardar").textContent = "Guardar cambios";
+
+  $("btnCancelarEdicion").classList.remove("oculto");
+  $("avisoEdicion").classList.remove("oculto");
+
+  $("mensajeMaterial").textContent = "";
+
+  $("seccionFormulario").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  $("titulo").focus({ preventScroll: true });
+}
+
+
+// CANCELAR EDICIÓN
+
+function cancelarEdicion() {
+
+  idEnEdicion = null;
+
+  $("formMaterial").reset();
+  $("publicado").checked = true;
+
+  $("tituloFormulario").textContent =
+    "Publicar material educativo";
+
+  $("btnGuardar").textContent = "Guardar material";
+
+  $("btnCancelarEdicion").classList.add("oculto");
+  $("avisoEdicion").classList.add("oculto");
+}
+
+$("btnCancelarEdicion").addEventListener(
+  "click",
+  () => {
+    cancelarEdicion();
+    $("mensajeMaterial").textContent = "";
+  }
+);
+
+
+// ELIMINAR MATERIAL
+
+async function eliminarMaterial(id) {
+
+  if (!esAdministrador(auth.currentUser)) {
+    return;
+  }
+
+  const material = materiales.find(m => m.id === id);
+
+  if (!material) {
+    return;
+  }
+
+  if (!confirm(
+    `¿Deseas eliminar definitivamente "${material.titulo}"?`
+  )) {
+    return;
+  }
+
+  try {
+
+    await deleteDoc(doc(db, "materiales", id));
+
+    if (idEnEdicion === id) {
+      cancelarEdicion();
+    }
+
+    await cargarMateriales();
+
+    mensaje(
+      "mensajeLista",
+      "Material eliminado correctamente."
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    mensaje(
+      "mensajeLista",
+      "No se pudo eliminar el material.",
+      false
+    );
+
+  }
+}
+
+
+// CARGAR DATOS DESDE FIRESTORE
+
+async function cargarMateriales() {
+
+  if (!esAdministrador(auth.currentUser)) {
+    return;
+  }
+
+  mensaje("mensajeLista", "Cargando materiales...");
+
+  try {
+
+    const resultado = await getDocs(
+      collection(db, "materiales")
+    );
+
+    materiales = resultado.docs.map(documento => ({
+      id: documento.id,
+      ...documento.data()
+    }));
+
+    materiales.sort((a, b) => {
+
+      const fechaA =
+        a.fechaCreacion?.toMillis?.() || 0;
+
+      const fechaB =
+        b.fechaCreacion?.toMillis?.() || 0;
+
+      return fechaB - fechaA;
+    });
+
+    renderizarTabla();
+
+    $("mensajeLista").textContent = "";
+
+  } catch (error) {
+
+    console.error(error);
+
+    mensaje(
+      "mensajeLista",
+      "No se pudo cargar la lista de materiales.",
+      false
+    );
+
+  }
+}
+
+
+// FILTRAR MATERIALES
+
+function obtenerFiltrados() {
+
+  const texto = $("buscar").value
+    .trim()
+    .toLocaleLowerCase("es");
+
+  return materiales.filter(m => {
+
+    const contenido = (
+      (m.titulo || "") + " " +
+      (m.descripcion || "")
+    ).toLocaleLowerCase("es");
+
+    const coincideTexto =
+      !texto || contenido.includes(texto);
+
+    const coincideGrado =
+      !$("filtroGrado").value ||
+      m.grado === $("filtroGrado").value;
+
+    const coincideBimestre =
+      !$("filtroBimestre").value ||
+      m.bimestre === $("filtroBimestre").value;
+
+    const coincideSemana =
+      !$("filtroSemana").value ||
+      m.semana === $("filtroSemana").value;
+
+    const estado = $("filtroEstado").value;
+
+    const coincideEstado =
+      !estado ||
+      (estado === "publicado" && m.publicado === true) ||
+      (estado === "borrador" && m.publicado !== true);
+
+    return coincideTexto &&
+           coincideGrado &&
+           coincideBimestre &&
+           coincideSemana &&
+           coincideEstado;
+  });
+
+}
+
+
+// CREAR CELDA SEGURA
+
+function crearCelda(texto, clase = "") {
+
+  const td = document.createElement("td");
+
+  td.textContent = String(texto ?? "");
+
+  if (clase) {
+    td.className = clase;
+  }
+
+  return td;
+}
+
+
+// RENDERIZAR TABLA Y PAGINACIÓN
+
+function renderizarTabla() {
+
+  const filtrados = obtenerFiltrados();
+
+  const porPagina = Number($("porPagina").value);
+
+  const totalPaginas = Math.max(
+    1,
+    Math.ceil(filtrados.length / porPagina)
+  );
+
+  paginaActual = Math.min(
+    Math.max(1, paginaActual),
+    totalPaginas
+  );
+
+  const inicio = (paginaActual - 1) * porPagina;
+
+  const visibles = filtrados.slice(
+    inicio,
+    inicio + porPagina
+  );
+
+  const cuerpo = $("cuerpoTabla");
+  cuerpo.replaceChildren();
+
+  const bimestres = {
+    "1": "I",
+    "2": "II",
+    "3": "III",
+    "4": "IV"
+  };
+
+  visibles.forEach(material => {
+
+    const fila = document.createElement("tr");
+
+    const titulo = crearCelda(
+      material.titulo || "Sin título",
+      "titulo-celda"
+    );
+
+    titulo.title = material.titulo || "";
+
+    fila.appendChild(titulo);
+
+    fila.appendChild(
+      crearCelda((material.grado || "-") + "º")
+    );
+
+    fila.appendChild(
+      crearCelda(bimestres[material.bimestre] || "-")
+    );
+
+    fila.appendChild(
+      crearCelda(material.semana || "-")
+    );
+
+    fila.appendChild(
+      crearCelda(material.tipo || "-")
+    );
+
+    fila.appendChild(
+      crearCelda(
+        material.publicado ? "Publicado" : "Borrador",
+        material.publicado
+          ? "estado-publicado"
+          : "estado-borrador"
+      )
+    );
+
+    const tdAcciones = document.createElement("td");
+
+    const acciones = document.createElement("div");
+    acciones.className = "acciones";
+
+    // ABRIR
+
+    const ver = document.createElement("a");
+
+    ver.className = "abrir";
+    ver.textContent = "👁";
+    ver.title = "Abrir material";
+    ver.setAttribute("aria-label", "Abrir material");
+
+    ver.href = enlaceValido(material.enlace)
+      ? material.enlace
+      : "#";
+
+    ver.target = "_blank";
+    ver.rel = "noopener noreferrer";
+
+    // EDITAR
+
+    const editar = document.createElement("button");
+
+    editar.type = "button";
+    editar.className = "editar";
+    editar.textContent = "✎";
+    editar.title = "Editar material";
+    editar.setAttribute("aria-label", "Editar material");
+
+    editar.addEventListener("click", () => {
+      editarMaterial(material.id);
+    });
+
+    // ELIMINAR
+
+    const borrar = document.createElement("button");
+
+    borrar.type = "button";
+    borrar.className = "borrar";
+    borrar.textContent = "🗑";
+    borrar.title = "Eliminar material";
+    borrar.setAttribute("aria-label", "Eliminar material");
+
+    borrar.addEventListener("click", () => {
+      eliminarMaterial(material.id);
+    });
+
+    acciones.append(ver, editar, borrar);
+
+    tdAcciones.appendChild(acciones);
+    fila.appendChild(tdAcciones);
+
+    cuerpo.appendChild(fila);
+
+  });
+
+  if (visibles.length === 0) {
+
+    const fila = document.createElement("tr");
+
+    const celda = crearCelda(
+      "No se encontraron materiales."
+    );
+
+    celda.colSpan = 7;
+    celda.style.textAlign = "center";
+    celda.style.padding = "20px";
+
+    fila.appendChild(celda);
+    cuerpo.appendChild(fila);
+  }
+
+  $("contador").textContent =
+    `${filtrados.length} material(es) encontrados` +
+    ` de ${materiales.length} registrados`;
+
+  $("indicadorPagina").textContent =
+    `Página ${paginaActual} de ${totalPaginas}`;
+
+  $("btnAnterior").disabled = paginaActual <= 1;
+
+  $("btnSiguiente").disabled =
+    paginaActual >= totalPaginas;
+}
+
+
+// EVENTOS DE BÚSQUEDA Y FILTROS
+
+[
+  "buscar",
+  "filtroGrado",
+  "filtroBimestre",
+  "filtroSemana",
+  "filtroEstado",
+  "porPagina"
+].forEach(id => {
+
+  const evento = id === "buscar" ? "input" : "change";
+
+  $(id).addEventListener(evento, () => {
+    paginaActual = 1;
+    renderizarTabla();
+  });
+
+});
+
+
+// LIMPIAR FILTROS
+
+$("btnLimpiar").addEventListener("click", () => {
+
+  $("buscar").value = "";
+  $("filtroGrado").value = "";
+  $("filtroBimestre").value = "";
+  $("filtroSemana").value = "";
+  $("filtroEstado").value = "";
+
+  paginaActual = 1;
+  renderizarTabla();
+
+});
+
+
+// CAMBIAR DE PÁGINA
+
+$("btnAnterior").addEventListener("click", () => {
+
+  if (paginaActual > 1) {
+    paginaActual--;
+    renderizarTabla();
+  }
+
+});
+
+$("btnSiguiente").addEventListener("click", () => {
+
+  const total = Math.ceil(
+    obtenerFiltrados().length /
+    Number($("porPagina").value)
+  );
+
+  if (paginaActual < total) {
+    paginaActual++;
+    renderizarTabla();
+  }
+
+});
+
+
+// ACTUALIZAR DESDE FIRESTORE
+
+$("btnActualizar").addEventListener(
+  "click",
+  cargarMateriales
+);
+
+</script>
+</body>
+</html>
